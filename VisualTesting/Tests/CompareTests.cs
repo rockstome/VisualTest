@@ -12,8 +12,8 @@ namespace VisualTesting.Tests
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            driver.Navigate().GoToUrl(@"C:\Users\tomas\Desktop\MyRepos\forms.html");
-            //driver.Manage().Window.Maximize();
+            driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("https://www.onet.pl/");
         }
 
         [OneTimeTearDown]
@@ -25,7 +25,7 @@ namespace VisualTesting.Tests
         [Test]
         public void GetDifference()
         {
-            Assert.That(Compare.GetDifference(driver, "forms.png") == 0, "Check output");
+            Assert.That(Compare.GetDifference(driver, "forms.png", By.Id("cipa")) == 0, "Check output");
         }
     }
 }

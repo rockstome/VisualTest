@@ -169,18 +169,17 @@ namespace VisualTesting.Utilities
             // first time we run a test we won't have a base image so create one and alert user in output window
             if (!File.Exists(testDataDirectory + imageFileName))
             {
-                imageFromUrl.Save(testDataDirectory + imageFileName);
+                imageFromUrl.Save(testDataDirectory + imageFileName, ImageFormat.Png);
+                Console.WriteLine("Base image not found. Created new base image. Rerun test.");
                 return -1;
-                //Debug.WriteLine(@"-> No base image found for - " + imageFileName);
-                //Debug.WriteLine(@"-> Base image created - " + imageFileName);
             }
-
             var baseImage = Image.FromFile(testDataDirectory + imageFileName);
             var differencePercentage = baseImage.Differences(imageFromUrl, threshold);
             if ((int)(differencePercentage * 100) > 0)
             {
                 CreateDifferenceImage(baseImage, imageFromUrl);
             }
+
             return (int)(differencePercentage * 100);
         }
 

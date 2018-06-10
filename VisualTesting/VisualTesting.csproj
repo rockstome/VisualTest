@@ -56,10 +56,12 @@
   <ItemGroup>
     <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\CompareTests.cs" />
+    <Compile Include="Tests\ElementCrop.cs" />
     <Compile Include="Tests\SeleniumDriverTests.cs" />
     <Compile Include="Utilities\Compare.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\SeleniumDriver.cs" />
+    <Compile Include="Utilities\WaitHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
