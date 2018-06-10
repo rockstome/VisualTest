@@ -132,7 +132,7 @@ namespace VisualTesting.Utilities
             foreach (var rectangle in rectangles)
             {
                 // Wait for JavaScript and jQuery fully load if exist
-                Waits.ForPageLoad(driver);
+                //Waits.ForPageLoad(driver);
                 // Calculate the scrolling (if needed)
                 if (previous != Rectangle.Empty)
                 {

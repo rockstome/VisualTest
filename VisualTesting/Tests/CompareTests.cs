@@ -13,7 +13,7 @@ namespace VisualTesting.Tests
         public void OneTimeSetup()
         {
             driver.Manage().Window.Maximize();
-            driver.Navigate().GoToUrl("https://www.onet.pl/");
+            driver.Navigate().GoToUrl("https://wiadomosci.onet.pl/tylko-w-onecie/przed-smiercia-w-kopalni-chcial-przynajmniej-zobaczyc-slonce/w1tnz50");
         }
 
         [OneTimeTearDown]
@@ -25,7 +25,8 @@ namespace VisualTesting.Tests
         [Test]
         public void GetDifference()
         {
-            Assert.That(Compare.GetDifference(driver, "forms.png", By.Id("cipa")) == 0, "Check output");
+            JavaScript.RemoveElement(driver, "css", "header.pageHeader");
+            Assert.That(Compare.GetDifference(driver, "removedHeader.png") == 0, "Check output");
         }
     }
 }

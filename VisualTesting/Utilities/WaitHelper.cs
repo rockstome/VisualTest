@@ -4,7 +4,7 @@ using System;
 
 namespace VisualTesting.Utilities
 {
-    public class Waits
+    public static class Waits
     {
         public static bool ForPageLoad(IWebDriver driver, int seconds = 30)
         {
