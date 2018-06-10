@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts.cs" />
     <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\CompareTests.cs" />
     <Compile Include="Tests\ElementCrop.cs" />
@@ -63,13 +64,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\JavaScript.cs" />
     <Compile Include="Utilities\SeleniumDriver.cs" />
-    <Compile Include="Utilities\WaitHelper.cs" />
+    <Compile Include="Utilities\Waits.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TODO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

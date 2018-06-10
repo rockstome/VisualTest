@@ -59,7 +59,7 @@ namespace VisualTesting.Utilities
         public static void CreateDifferenceImage(Image img1, Image img2)
         {
             // TODO hardcoded path
-            var outputDirectory = @"C:\Users\tomas\Desktop\MyRepos\TestData\";
+            var outputDirectory = Consts.testDataDirectory;
             // Save difference image
             string differencesFilename = $"{DateTime.Now:yyyy-MM-ddTHH-mm-ss}-Differences.png";
             img2.GetDifferenceImage(img1)
@@ -74,6 +74,35 @@ namespace VisualTesting.Utilities
 
             // Save copy of actual image
             string actualImageFilename = $"{DateTime.Now:yyyy-MM-ddTHH-mm-ss}-ActualImage.png";
+            img2.Save($"{outputDirectory}{actualImageFilename}");
+
+            //Debug.WriteLine(@"-> Logging actual screenshot to: - file:///" + outputDirectory + actualImageFilename);
+            //Context.Properties["TestInformation"] +=
+            //    $"<figure>Actual screenshot {actualImageFilename}<a href=\"{actualImageFilename}\"><img src=\"{actualImageFilename}\" alt=\"Actual\" class=\"float-left\"></a></figure>";
+        }
+
+        public static void CreateDifferenceImage(Image img1, Image img2, string fileName)
+        {
+            if (fileName.Contains("."))
+            {
+                fileName = fileName.Substring(0, fileName.IndexOf("."));
+            }
+            // TODO hardcoded path
+            var outputDirectory = Consts.testDataDirectory;
+            // Save difference image
+            string differencesFilename = $"{fileName}-{DateTime.Now:yyyy-MM-ddTHH-mm-ss}-Differences.png";
+            img2.GetDifferenceImage(img1)
+                .Resize(img1.Width, img1.Height)
+                .Save($"{outputDirectory}{differencesFilename}");
+
+            //Debug.WriteLine("-> Unexpected difference(s) found");
+            //Debug.WriteLine($@"-> Logging differences screenshot to: - file:///{outputDirectory}\{reportFilename}");
+
+            //Context.Properties["TestInformation"] +=
+            //    $"<figure>Differences screenshot {differencesFilename}<a href=\"{differencesFilename}\"><img src=\"{differencesFilename}\" alt=\"Differences\" class=\"float-left\"></a></figure>";
+
+            // Save copy of actual image
+            string actualImageFilename = $"{fileName}-{DateTime.Now:yyyy-MM-ddTHH-mm-ss}-ActualImage.png";
             img2.Save($"{outputDirectory}{actualImageFilename}");
 
             //Debug.WriteLine(@"-> Logging actual screenshot to: - file:///" + outputDirectory + actualImageFilename);
@@ -164,7 +193,7 @@ namespace VisualTesting.Utilities
             var currentScreenshot = new MemoryStream(SeleniumDriver.GetScreenshotOfCurrentPage(driver, by));
             var imageFromUrl = Image.FromStream(currentScreenshot);
             // TODO hardcoded path
-            var testDataDirectory = @"C:\Users\tomas\Desktop\MyRepos\TestData\";
+            var testDataDirectory = Consts.testDataDirectory;
 
             // first time we run a test we won't have a base image so create one and alert user in output window
             if (!File.Exists(testDataDirectory + imageFileName))
@@ -177,7 +206,7 @@ namespace VisualTesting.Utilities
             var differencePercentage = baseImage.Differences(imageFromUrl, threshold);
             if ((int)(differencePercentage * 100) > 0)
             {
-                CreateDifferenceImage(baseImage, imageFromUrl);
+                CreateDifferenceImage(baseImage, imageFromUrl, imageFileName);
             }
 
             return (int)(differencePercentage * 100);
@@ -197,7 +226,7 @@ namespace VisualTesting.Utilities
             var currentScreenshot = new MemoryStream(SeleniumDriver.GetScreenshotOfCurrentPage(driver));
             var imageFromUrl = Image.FromStream(currentScreenshot);
             // TODO hardcoded path
-            var testDataDirectory = @"C:\Users\tomas\Desktop\MyRepos\TestData\";
+            var testDataDirectory = Consts.testDataDirectory;
 
             // first time we run a test we won't have a base image so create one and alert user in output window
             if (!File.Exists(testDataDirectory + imageFileName))
@@ -210,7 +239,7 @@ namespace VisualTesting.Utilities
             var differencePercentage = baseImage.Differences(imageFromUrl, threshold);
             if ((int)(differencePercentage * 100) > 0)
             {
-                CreateDifferenceImage(baseImage, imageFromUrl);
+                CreateDifferenceImage(baseImage, imageFromUrl, imageFileName);
             }
 
             return (int)(differencePercentage * 100);

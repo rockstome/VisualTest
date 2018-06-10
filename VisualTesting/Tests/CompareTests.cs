@@ -13,7 +13,7 @@ namespace VisualTesting.Tests
         public void OneTimeSetup()
         {
             driver.Manage().Window.Maximize();
-            driver.Navigate().GoToUrl("https://wiadomosci.onet.pl/tylko-w-onecie/przed-smiercia-w-kopalni-chcial-przynajmniej-zobaczyc-slonce/w1tnz50");
+            driver.Navigate().GoToUrl("https://stackoverflow.com/questions/1821167/selenium-screenshots-using-rspec");
         }
 
         [OneTimeTearDown]
@@ -23,10 +23,17 @@ namespace VisualTesting.Tests
         }
 
         [Test]
-        public void GetDifference()
+        public void WithBars()
         {
-            JavaScript.RemoveElement(driver, "css", "header.pageHeader");
-            Assert.That(Compare.GetDifference(driver, "removedHeader.png") == 0, "Check output");
+            Assert.That(Compare.GetDifference(driver, "withBars.png"), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void WithoutBars()
+        {
+            driver.FindElement(By.CssSelector("div#js-gdpr-consent-banner button")).Click();
+            JavaScript.RemoveElement(driver, "css", "header.top-bar");
+            Assert.That(Compare.GetDifference(driver, "withBars.png"), Is.EqualTo(0));
         }
     }
 }

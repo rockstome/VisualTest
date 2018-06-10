@@ -1,0 +1,1 @@
+﻿-automatyczne tworzenie katalogu o nazwie nazwa metody testowej

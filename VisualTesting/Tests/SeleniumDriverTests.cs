@@ -14,7 +14,7 @@ namespace VisualTesting.Tests
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            driver.Navigate().GoToUrl(@"C:\Users\tomas\Desktop\MyRepos\forms.html");
+            driver.Navigate().GoToUrl(Consts.formsHtml);
         }
 
         [OneTimeTearDown]
@@ -26,7 +26,7 @@ namespace VisualTesting.Tests
         [Test]
         public void SaveScreenShotFromCurrentPage()
         {
-            string testDataDirectory = @"C:\Users\tomas\Desktop\MyRepos\TestData\";
+            string testDataDirectory = Consts.testDataDirectory;
             string fileName = new Random().Next(10000, 100000).ToString();
             string path = testDataDirectory + fileName + ".png";
 
@@ -44,7 +44,7 @@ namespace VisualTesting.Tests
         [Test]
         public void SaveElementScreenShotFromCurrentPage()
         {
-            string testDataDirectory = @"C:\Users\tomas\Desktop\MyRepos\TestData\";
+            string testDataDirectory = Consts.testDataDirectory;
             string fileName = new Random().Next(10000, 100000).ToString();
             string path = testDataDirectory + fileName + ".png";
 
@@ -62,7 +62,7 @@ namespace VisualTesting.Tests
         [Test]
         public void CoverDynamicElementBySelector()
         {
-            string testDataDirectory = @"C:\Users\tomas\Desktop\MyRepos\TestData\";
+            string testDataDirectory = Consts.testDataDirectory;
             string fileName = new Random().Next(10000, 100000).ToString();
             string path = testDataDirectory + fileName + ".png";
 
@@ -73,7 +73,7 @@ namespace VisualTesting.Tests
             }
 
             Assert.That(File.Exists(path), Is.EqualTo(false));
-            SeleniumDriver.CoverDynamicElementBySelector(driver, By.Id("form2"));
+            JavaScript.CoverDynamicElementBySelector(driver, By.Id("form2"));
             SeleniumDriver.SaveScreenShotFromCurrentPage(driver, fileName);
             Assert.That(File.Exists(path), Is.EqualTo(true));
         }

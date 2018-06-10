@@ -13,7 +13,7 @@ namespace VisualTesting.Tests
         public void OneTimeSetup()
         {
             driver.Manage().Window.Maximize();
-            driver.Navigate().GoToUrl(@"C:\Users\tomas\Desktop\MyRepos\forms.html");
+            driver.Navigate().GoToUrl(Consts.formsHtml);
         }
 
         [OneTimeTearDown]

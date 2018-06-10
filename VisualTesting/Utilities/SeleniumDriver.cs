@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.Extensions;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace VisualTesting.Utilities
         public static void SaveScreenShotFromCurrentPage(IWebDriver driver, string fileName)
         {
             // TODO hardcoded path
-            var testDataDirectory = @"C:\Users\tomas\Desktop\MyRepos\TestData\";
+            var testDataDirectory = Consts.testDataDirectory;
             var ss = ((ITakesScreenshot)driver).GetScreenshot();
             if (!Directory.Exists(testDataDirectory))
             {
@@ -35,7 +36,7 @@ namespace VisualTesting.Utilities
         public static void SaveElementScreenShotFromCurrentPage(IWebDriver driver, By by, string fileName)
         {
             // TODO hardcoded path
-            var testDataDirectory = @"C:\Users\tomas\Desktop\MyRepos\TestData\";
+            var testDataDirectory = Consts.testDataDirectory;
 
             var byteArray = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
             var screenshot = new Bitmap(new MemoryStream(byteArray));
@@ -61,7 +62,7 @@ namespace VisualTesting.Utilities
             }
         }
 
-        // TODO robi tylko zdjecie elementu jest ten znajduje sie w widoku
+        // TODO robi tylko zdjecie elementu jesli ten znajduje sie w widoku i jest nie wiekszy niz widok.
         public static Bitmap TakeElementScreenShotFromCurrentPage(IWebDriver driver, By by)
         {
             var byteArray = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
@@ -85,6 +86,12 @@ namespace VisualTesting.Utilities
         /// <returns>Image of full page</returns>
         public static Image GetScreenShotOfFullPage(IWebDriver driver)
         {
+            new Actions(driver).SendKeys(Keys.End).Build().Perform();
+            Waits.ForPageLoad(driver);
+
+            new Actions(driver).SendKeys(Keys.End).Build().Perform();
+            Waits.ForPageLoad(driver);
+
             // Get the total size of the page
             var totalWidth = (int)(long)((IJavaScriptExecutor)driver).ExecuteScript("return document.body.offsetWidth"); //documentElement.scrollWidth");
             var totalHeight = (int)(long)((IJavaScriptExecutor)driver).ExecuteScript("return  document.body.parentNode.scrollHeight");
@@ -217,33 +224,6 @@ namespace VisualTesting.Utilities
         {
             var converter = new ImageConverter();
             return (byte[])converter.ConvertTo(img, typeof(byte[]));
-        }
-
-        /// <summary>
-        ///     Cover the specified dynamic element on the renedered page
-        /// </summary>
-        /// <param name="driver">WebDriver</param>
-        /// <param name="elementSelector">Element Selector</param>
-        public static void CoverDynamicElementBySelector(IWebDriver driver, By by)
-        {
-            IWebElement element = driver.FindElement(by);
-
-            // Get position of element which we will overlay with a coloured box
-            var elementX = element.Location.X; //element from top
-            var elementY = element.Location.Y; // element from left
-            var elementWidth = element.Size.Width;
-            var elementHeight = element.Size.Height;
-
-            // Set styling to place over the top of the dynamic content
-            var style =
-                string.Format(
-                    "'position:absolute;top:{1}px;left:{0}px;width:{2}px;height:{3}px;color:white;background-color:#ffee11;text-align: center;'",
-                    elementX, elementY, elementWidth, elementHeight);
-
-            // Set javascript to execute on browser which will cover the dynamic content
-            var replaceDynamicContentScript = "var div = document.createElement('div');div.setAttribute('style'," +
-                                              style + ");document.body.appendChild(div); return true;";
-            driver.ExecuteJavaScript(replaceDynamicContentScript);
         }
     }
 }

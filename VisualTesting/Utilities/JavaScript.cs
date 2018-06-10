@@ -43,5 +43,32 @@ namespace VisualTesting.Utilities
                 throw new NotImplementedException();
             }
         }
+
+        /// <summary>
+        ///     Cover the specified dynamic element on the renedered page
+        /// </summary>
+        /// <param name="driver">WebDriver</param>
+        /// <param name="elementSelector">Element Selector</param>
+        public static void CoverDynamicElementBySelector(IWebDriver driver, By by)
+        {
+            IWebElement element = driver.FindElement(by);
+
+            // Get position of element which we will overlay with a coloured box
+            var elementX = element.Location.X; //element from top
+            var elementY = element.Location.Y; // element from left
+            var elementWidth = element.Size.Width;
+            var elementHeight = element.Size.Height;
+
+            // Set styling to place over the top of the dynamic content
+            var style =
+                string.Format(
+                    "'position:absolute;top:{1}px;left:{0}px;width:{2}px;height:{3}px;color:white;background-color:#ffee11;text-align: center;'",
+                    elementX, elementY, elementWidth, elementHeight);
+
+            // Set javascript to execute on browser which will cover the dynamic content
+            var replaceDynamicContentScript = "var div = document.createElement('div');div.setAttribute('style'," +
+                                              style + ");document.body.appendChild(div); return true;";
+            ((IJavaScriptExecutor)driver).ExecuteScript(replaceDynamicContentScript);
+        }
     }
 }
