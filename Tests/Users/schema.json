@@ -1,0 +1,30 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for user data file",
+
+  "type": "object",
+  "required": [ "firstName", "lastName", "millecode", "pesel" ],
+  "properties": {
+    "pesel": {
+      "type": "string",
+      "pattern": "^[0-9]{11}$"
+    },
+    "millecode": {
+      "type": "string",
+      "pattern": "^[0-9]{8}$"
+    },
+    "firstName": {
+      "type": "string",
+      "description": "Only first letter in uppercase",
+      "pattern": "^[A-Z][a-z]+$"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Only first letter in uppercase",
+      "pattern": "^[A-Z][a-z]+$"
+    }
+  },
+  "additionalProperties": {
+    "type": "string"
+  }
+}
