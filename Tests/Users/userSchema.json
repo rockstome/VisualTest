@@ -1,0 +1,31 @@
+﻿{
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "required": [ "millecode", "password", "pesel", "firstName", "lastName" ],
+    "properties": {
+      "pesel": {
+        "type": "string",
+        "pattern": "^[0-9]{11}$"
+      },
+      "millecode": {
+        "type": "string",
+        "pattern": "^[0-9]{8}$"
+      },
+      "password": {
+        "type": "string",
+        "pattern": "^[0-9]{8}$"
+      },
+      "firstName": {
+        "type": "string",
+        "description": "Only first letter in uppercase",
+        "pattern": "^[A-Z][a-z]+$"
+      },
+      "lastName": {
+        "type": "string",
+        "description": "Only first letter in uppercase",
+        "pattern": "^[A-Z][a-z]+$"
+      }
+    }
+  }
+}

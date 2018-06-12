@@ -5,6 +5,12 @@ namespace VisualTesting.Utilities
 {
     public static class JavaScript
     {
+        /// <summary>
+        ///     Remove the specified element from the DOM.
+        /// </summary>
+        /// <param name="driver">Webdriver.</param>
+        /// <param name="method">Method to find element, supported methods: id, name, class, css, xpath.</param>
+        /// <param name="selector"></param>
         public static void RemoveElement(IWebDriver driver, string method, string selector)
         {
             string script = null;
@@ -45,10 +51,10 @@ namespace VisualTesting.Utilities
         }
 
         /// <summary>
-        ///     Cover the specified dynamic element on the renedered page
+        ///     Cover the specified dynamic element on the renedered page.
         /// </summary>
-        /// <param name="driver">WebDriver</param>
-        /// <param name="elementSelector">Element Selector</param>
+        /// <param name="driver">WebDriver.</param>
+        /// <param name="by">Element selector.</param>
         public static void CoverDynamicElementBySelector(IWebDriver driver, By by)
         {
             IWebElement element = driver.FindElement(by);

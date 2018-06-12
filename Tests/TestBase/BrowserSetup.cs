@@ -4,14 +4,14 @@ using OpenQA.Selenium.Chrome;
 
 namespace Tests.TestBase
 {
-    public class BrowserSetup
+    public class BrowserSetup : BaseSetup
     {
         protected IWebDriver driver;
 
         [OneTimeSetUp]
         public void BrowserOneTimeSetUp()
         {
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(); // TODO = new Browser.GetBrowser();
         }
 
         [OneTimeTearDown]

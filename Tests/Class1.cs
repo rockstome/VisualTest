@@ -5,9 +5,7 @@ namespace Tests
 {
     public class Class1 : AppSetup
     {
-        public Class1() : base(Helper.GetUser("60001617"))
-        {
-        }
+        public Class1() : base(Helper.GetUser("60001617")) { }
 
         [Test]
         public void Test1()

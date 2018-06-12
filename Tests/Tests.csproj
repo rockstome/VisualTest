@@ -61,6 +61,7 @@
     <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase\AppSetup.cs" />
+    <Compile Include="TestBase\BaseSetup.cs" />
     <Compile Include="TestBase\BrowserSetup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,10 +73,14 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Users\60001617.json" />
-    <None Include="Users\schema.json" />
+    <None Include="Users\userSchema.json" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Class1\Test1\" />
+    <Folder Include="Images\Class1\Test2\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -87,4 +92,9 @@
     <Error Condition="!Exists('..\VisualTesting\packages\Selenium.WebDriver.ChromeDriver.2.40.0\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\VisualTesting\packages\Selenium.WebDriver.ChromeDriver.2.40.0\build\Selenium.WebDriver.ChromeDriver.targets'))" />
   </Target>
   <Import Project="..\VisualTesting\packages\Selenium.WebDriver.ChromeDriver.2.40.0\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\VisualTesting\packages\Selenium.WebDriver.ChromeDriver.2.40.0\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Users_460001617_1json__JSONSchema="userSchema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
