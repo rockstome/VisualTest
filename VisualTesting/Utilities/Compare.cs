@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -223,17 +224,22 @@ namespace VisualTesting.Utilities
         {
             var currentScreenshot = new MemoryStream(SeleniumDriver.GetScreenshotOfCurrentPage(driver));
             var imageFromUrl = Image.FromStream(currentScreenshot);
-            // TODO hardcoded path
-            var testDataDirectory = Consts.testDataDirectory;
+            var testName = TestContext.CurrentContext.Test.FullName.Split('.');
+            string className = testName[testName.Length - 2];
+            string methodName = testName[testName.Length - 1];
+
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Images\", className, methodName);
+            Directory.CreateDirectory(path);
+            string imageFile = path + @"\" + imageFileName + ".png";
 
             // first time we run a test we won't have a base image so create one and alert user in output window
-            if (!File.Exists(testDataDirectory + imageFileName))
+            if (!File.Exists(imageFile))
             {
-                imageFromUrl.Save(testDataDirectory + imageFileName, ImageFormat.Png);
-                Console.WriteLine("Base image not found. Created new base image. Rerun test.");
+                imageFromUrl.Save(imageFile, ImageFormat.Png);
+                Assert.Fail($"Base image not found. Created new base image in {imageFile}.");
                 return -1;
             }
-            var baseImage = Image.FromFile(testDataDirectory + imageFileName);
+            var baseImage = Image.FromFile(imageFile);
             var differencePercentage = baseImage.Differences(imageFromUrl, threshold);
             if ((int)(differencePercentage * 100) > 0)
             {

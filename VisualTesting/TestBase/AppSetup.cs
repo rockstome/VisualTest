@@ -15,7 +15,7 @@ namespace Tests.TestBase
         [OneTimeSetUp]
         public void AppOneTimeSetUp()
         {
-            driver.Navigate().GoToUrl($"http://www.{user["millecode"]}.com");
+            driver.Navigate().GoToUrl($"http://www.{user["url"]}.com");
         }
 
         [SetUp]

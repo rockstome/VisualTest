@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Tests.TestBase;
+using VisualTesting.Utilities;
 
 namespace Tests
 {
@@ -10,6 +11,7 @@ namespace Tests
         [Test]
         public void Test1()
         {
+            Compare.GetDifference(driver, "firstScreen");
             System.Console.WriteLine(user["password"]);
         }
 

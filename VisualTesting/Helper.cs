@@ -12,14 +12,10 @@ namespace Tests
             string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Users\");
             string path = dir + fileName + ".json";
             if (!File.Exists(path))
-            {
                 throw new Exception($"File {path} does not exist.");
-            }
 
             string text = File.ReadAllText(path);
-            JObject jsonObj = JObject.Parse(text);
-            var temp = jsonObj.ToObject<Dictionary<string, Dictionary<string, string>>>();
-            return temp[fileName];
+            return JObject.Parse(text).ToObject<Dictionary<string, Dictionary<string, string>>>()[fileName];
         }
     }
 }
